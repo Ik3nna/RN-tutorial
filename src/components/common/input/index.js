@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1, 
-    fontSize: 16
+    fontSize: 16,
+    width: "100%"
   },
   error: {
     color: colors.danger,
