@@ -58,6 +58,10 @@ const styles = StyleSheet.create({
   inputContainer: {
     paddingVertical: 12
   },
+  label: {
+    fontSize: 20,
+    fontWeight: 700
+  },
   wrapper: {
     height: 42,
     borderWidth: 1,
@@ -67,6 +71,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1, 
+    fontSize: 16
   },
   error: {
     color: colors.danger,

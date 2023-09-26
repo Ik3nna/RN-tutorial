@@ -2,6 +2,7 @@ import { SafeAreaView, StyleSheet, Text, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import Container from '../../components/common/container';
 import Input from '../../components/common/input';
+import { StatusBar } from 'expo-status-bar';
 
 export default function Login () {
   const [text, onChangeText] = useState('');
@@ -9,6 +10,7 @@ export default function Login () {
   return (
     <SafeAreaView>
       <Container>
+        <StatusBar style='auto' />
         <Input 
           label="Username"
           value={text} 
