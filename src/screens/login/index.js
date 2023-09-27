@@ -2,6 +2,7 @@ import { SafeAreaView, StyleSheet, Text, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import Container from '../../components/common/container';
 import Input from '../../components/common/input';
+import CustomButton from '../../components/common/customButton';
 import { StatusBar } from 'expo-status-bar';
 
 export default function Login () {
@@ -24,6 +25,13 @@ export default function Login () {
           iconPosition="right"
           value={text} 
           onChangeText={(value)=>onChangeText(value)} 
+        />
+
+        <CustomButton 
+          title="Submit" 
+          secondary
+          loading={true}
+          disabled={true}
         />
       </Container>
     </SafeAreaView>
