@@ -1,12 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import SignupComponent from '../../components/signupComponent'
 
 export default function Register () {
   return (
-    <View>
-      <Text>Contacts</Text>
-    </View>
+    <SignupComponent />
   )
 }
-
-const styles = StyleSheet.create({})
