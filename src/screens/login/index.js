@@ -1,43 +1,11 @@
-import { SafeAreaView, StyleSheet, Text, TextInput } from 'react-native'
-import React, { useState } from 'react'
-import Container from '../../components/common/container';
-import Input from '../../components/common/input';
-import CustomButton from '../../components/common/customButton';
-import { StatusBar } from 'expo-status-bar';
+import { View, Text } from 'react-native'
+import React from 'react'
+import LoginComponent from '../../components/loginComponent'
 
 export default function Login () {
-  const [text, onChangeText] = useState('');
-
+  
   return (
-    <SafeAreaView>
-      <Container>
-        <StatusBar style='auto' />
-        <Input 
-          label="Username"
-          value={text} 
-          onChangeText={(value)=>onChangeText(value)} 
-          // error="This field is required"
-        />
-
-        <Input 
-          label="Password"
-          icon={<Text>HIDE</Text>}
-          iconPosition="right"
-          value={text} 
-          onChangeText={(value)=>onChangeText(value)} 
-        />
-
-        <CustomButton 
-          title="Submit" 
-          secondary
-          loading={true}
-          disabled={true}
-        />
-      </Container>
-    </SafeAreaView>
+    <LoginComponent />
   )
 }
 
-const styles = StyleSheet.create({
-  
-})
