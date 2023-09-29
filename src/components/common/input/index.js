@@ -2,7 +2,7 @@ import { View, Text, TextInput, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import colors from '../../../assets/themes/colors';
 
-const Input = ({ onChangeText, icon, iconPosition, value, label, style, error, ...props }) => {
+const Input = ({ onChangeText, icon, iconPosition, value, onBlur, label, style, error, ...props }) => {
   const [ focused, setFocused ] = useState(false);
 
   const getFlexDirection = ()=> {
@@ -16,12 +16,13 @@ const Input = ({ onChangeText, icon, iconPosition, value, label, style, error, .
   }
 
   const getBorderColor = ()=> {
+    if (error) {
+      return colors.danger;
+    }
     if (focused) {
       return colors.primary
     }
-    if (error) {
-      return colors.red;
-    } else {
+    else {
       return colors.grey;
     }
   }
@@ -34,7 +35,12 @@ const Input = ({ onChangeText, icon, iconPosition, value, label, style, error, .
         </Text>
       }
 
-      <View style={[styles.wrapper, { alignItems: icon && "center", borderColor: getBorderColor(), flexDirection: getFlexDirection()}]}>
+      <View 
+        style={[styles.wrapper, 
+        { alignItems: icon && "center" },
+        { borderColor: getBorderColor() }, 
+        { flexDirection: getFlexDirection()}
+      ]}>
         <View style={styles.icon}>{icon && icon}</View>
 
         <TextInput 
@@ -42,7 +48,7 @@ const Input = ({ onChangeText, icon, iconPosition, value, label, style, error, .
           value={value} 
           onFocus={()=>setFocused(true)}
           onBlur={()=>setFocused(false)}
-          onChange={onChangeText} 
+          onChangeText={onChangeText} 
           {...props}
         />
       </View>
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: 5,
-    marginTop: 5
+    marginTop: 5,
   },
   input: {
     flex: 1, 
