@@ -29,15 +29,14 @@ const SignupComponent = () => {
   })
   const onSubmit = (data) => console.log(data)
 
-
   return (
     <SafeAreaView>
       <Container>
         <StatusBar style='auto' />
 
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        <KeyboardAvoidingView 
           style={{ flex: 1 }}
+          behavior={"position"}
         >
           <Image style={styles.img} source={logo} alt="logo" />
 
