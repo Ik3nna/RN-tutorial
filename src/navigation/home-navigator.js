@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { CONTACT_LIST, CONTACT_DETAIL, CREATE_CONTACT, SETTINGS } from '../constants/routeName';
-import Contacts from "../screens/contacts";
+import Contacts from "../screens/contacts"
 import ContactDetail from "../screens/contactDetail";
 import CreateContact from "../screens/createContact";
 import Settings from "../screens/settings";

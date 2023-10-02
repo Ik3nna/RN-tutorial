@@ -7,14 +7,15 @@ import { StatusBar } from 'expo-status-bar';
 import { useForm, Controller } from "react-hook-form";
 import register from "../../context/actions/authRegister";
 import { clearAuthState } from '../../context/actions/authRegister';
+import colors from '../../assets/themes/colors';
+import { useGlobalContext } from '../../context/provider';
+import Message from '../common/message';
 
 // Images
 import logo from "../../assets/images/logo.png"
 import { LOGIN } from '../../constants/routeName';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import colors from '../../assets/themes/colors';
-import { useGlobalContext } from '../../context/provider';
-import Message from '../common/message';
+
 
 const SignupComponent = () => {
   const { navigate } = useNavigation();
@@ -47,8 +48,10 @@ const SignupComponent = () => {
 
   useFocusEffect(
     React.useCallback(()=>{
-      if (data || error) {
-        clearAuthState()(authDispatch);
+      return ()=> {
+        if (data || error) {
+          clearAuthState()(authDispatch);
+        }
       }
     }, [data, error]) 
   )
@@ -78,7 +81,14 @@ const SignupComponent = () => {
             />
 
             <View style={styles.form}>
-              {error?.error && <Text>{error.error}</Text>}
+              {error?.error && 
+                <Message 
+                  retry 
+                  retryFn={()=>{}} 
+                  danger
+                  message={error?.error}
+                />
+              }
             <Controller
               control={control}
               rules={{
