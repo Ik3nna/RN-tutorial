@@ -14,6 +14,7 @@ import { LOGIN } from '../../constants/routeName';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import colors from '../../assets/themes/colors';
 import { useGlobalContext } from '../../context/provider';
+import Message from '../common/message';
 
 const SignupComponent = () => {
   const { navigate } = useNavigation();
@@ -67,6 +68,14 @@ const SignupComponent = () => {
           <View>
             <Text style={styles.title}>Welcome to Contacts</Text>
             <Text style={styles.subTitle}>Create a free account</Text>
+            
+            <Message 
+              retry 
+              retryFn={()=>{}} 
+              primary 
+              onDismiss={()=>{}}
+              message="Invalid credentials" 
+            />
 
             <View style={styles.form}>
               {error?.error && <Text>{error.error}</Text>}
