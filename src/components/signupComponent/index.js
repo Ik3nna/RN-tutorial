@@ -4,13 +4,15 @@ import Container from '../common/container';
 import Input from '../common/input';
 import CustomButton from '../common/customButton';
 import { StatusBar } from 'expo-status-bar';
-import { useForm, Controller } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form";
+import register from "../../context/actions/authRegister";
 
 // Images
 import logo from "../../assets/images/logo.png"
 import { LOGIN } from '../../constants/routeName';
 import { useNavigation } from '@react-navigation/native';
 import colors from '../../assets/themes/colors';
+import { useGlobalContext } from '../../context/provider';
 
 const SignupComponent = () => {
   const { navigate } = useNavigation();
@@ -27,7 +29,11 @@ const SignupComponent = () => {
       password: ""
     },
   })
-  const onSubmit = (data) => console.log(data)
+  const { authDispatch, authState:{ error, loading, data} } = useGlobalContext();
+
+  const onSubmit = (data) => {
+    register(data)(authDispatch);
+  }
 
   return (
     <SafeAreaView>
@@ -139,11 +145,12 @@ const SignupComponent = () => {
               name="password"
             />
 
-
             <CustomButton 
               title="Submit" 
                 primary
                 onPress={handleSubmit(onSubmit)}
+                loading={loading}
+                disabled={loading}
             />
 
             <View style={styles.create}>
