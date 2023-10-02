@@ -23,7 +23,7 @@ export default function CustomButton ({ title, disabled, loading, secondary, pri
             {loading && <ActivityIndicator color={primary ? colors.secondary : colors.primary} />}
 
             {title &&
-                <Text style={[styles.btnText, { color: disabled ? "black" : "white", paddingLeft: loading && 5 }]}>{title}</Text>
+                <Text style={[styles.btnText, { color: disabled ? "black" : "white", paddingLeft: loading ? 5 : "auto" }]}>{title}</Text>
             }  
         </View>
     </TouchableOpacity>

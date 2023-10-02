@@ -1,16 +1,17 @@
 import { Image, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '../common/container';
 import Input from '../common/input';
 import CustomButton from '../common/customButton';
 import { StatusBar } from 'expo-status-bar';
 import { useForm, Controller } from "react-hook-form";
 import register from "../../context/actions/authRegister";
+import { clearAuthState } from '../../context/actions/authRegister';
 
 // Images
 import logo from "../../assets/images/logo.png"
 import { LOGIN } from '../../constants/routeName';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import colors from '../../assets/themes/colors';
 import { useGlobalContext } from '../../context/provider';
 
@@ -35,6 +36,22 @@ const SignupComponent = () => {
     register(data)(authDispatch);
   }
 
+  console.log(data);
+  
+  useEffect(()=>{
+    if (data) {
+      navigate(LOGIN);
+    }
+  },[data]);
+
+  useFocusEffect(
+    React.useCallback(()=>{
+      if (data || error) {
+        clearAuthState()(authDispatch);
+      }
+    }, [data, error]) 
+  )
+
   return (
     <SafeAreaView>
       <Container>
@@ -43,6 +60,7 @@ const SignupComponent = () => {
         <KeyboardAvoidingView 
           style={{ flex: 1 }}
           behavior={"position"}
+          keyboardVerticalOffset={-100}
         >
           <Image style={styles.img} source={logo} alt="logo" />
 
@@ -51,6 +69,7 @@ const SignupComponent = () => {
             <Text style={styles.subTitle}>Create a free account</Text>
 
             <View style={styles.form}>
+              {error?.error && <Text>{error.error}</Text>}
             <Controller
               control={control}
               rules={{
@@ -62,7 +81,7 @@ const SignupComponent = () => {
                 placeholder="Enter Username"
                 value={value}
                 onChangeText={onChange}
-                error={errors.userName && "Please enter a user name"}
+                error={errors.userName && "Please enter a user name" || error?.username?.[0]}
               />
               )}
               name="userName"
@@ -79,7 +98,7 @@ const SignupComponent = () => {
                 placeholder="Firstname"
                 value={value}
                 onChangeText={onChange}
-                error={errors.firstName && "Please enter a first name"}
+                error={errors.firstName && "Please enter a first name" || error?.firstname?.[0]}
               />
               )}
               name="firstName"
@@ -96,7 +115,7 @@ const SignupComponent = () => {
                 placeholder="Lastname"
                 value={value}
                 onChangeText={onChange}
-                error={errors.lastName && "Please enter a last name"}
+                error={errors.lastName && "Please enter a last name" || error?.lastname?.[0]}
               />
               )}
               name="lastName"
@@ -116,7 +135,7 @@ const SignupComponent = () => {
                 placeholder="Email address"
                 value={value}
                 onChangeText={onChange}
-                error={errors.email && "Please enter a valid email address"}
+                error={errors.email && "Please enter a valid email address" || error?.email?.[0]}
               />
               )}
               name="email"
@@ -139,7 +158,7 @@ const SignupComponent = () => {
                 iconPosition="right" 
                 value={value}
                 onChangeText={onChange}
-                error={errors.password && "Password must be 6 characters or more"}
+                error={errors.password && "Password must be 6 characters or more" || error?.password?.[0]}
               />
               )}
               name="password"
@@ -147,10 +166,10 @@ const SignupComponent = () => {
 
             <CustomButton 
               title="Submit" 
-                primary
-                onPress={handleSubmit(onSubmit)}
-                loading={loading}
-                disabled={loading}
+              primary
+              onPress={handleSubmit(onSubmit)}
+              loading={loading}
+              disabled={loading}
             />
 
             <View style={styles.create}>

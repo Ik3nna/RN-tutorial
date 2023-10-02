@@ -1,10 +1,16 @@
 import axiosInstance from "../../helpers/axioxInterceptor";
-import { REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS } from "../../constants/actionTypes/index"
+import { CLEAR_AUTH_STATE, REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS } from "../../constants/actionTypes/index"
+
+export const clearAuthState = ()=> dispatch => (
+    dispatch({
+        type: CLEAR_AUTH_STATE
+    })
+)
 
 export default({
     email,
     password,
-    userName,
+    userName: username,
     firstName: first_name,
     lastName: last_name
 }) => dispatch => {
@@ -14,7 +20,7 @@ export default({
     axiosInstance.post("auth/register", {
         email,
         password,
-        userName,
+        username,
         first_name,
         last_name
     }).then(res=>{

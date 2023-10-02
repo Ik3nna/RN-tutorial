@@ -1,4 +1,4 @@
-import { REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS } from "../../constants/actionTypes";
+import { REGISTER_FAIL, REGISTER_LOADING, REGISTER_SUCCESS, CLEAR_AUTH_STATE } from "../../constants/actionTypes";
 
 export default function Auth (state, action) {
     switch (action.type) {
@@ -16,6 +16,11 @@ export default function Auth (state, action) {
             return {
                 ...state, loading: false, error: action.payload
             };
+
+        case CLEAR_AUTH_STATE:
+            return {
+                ...state, data: null, error: null
+            }
         default:
             return state;
     }
