@@ -1,18 +1,35 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeNavigator from './home-navigator';
 import { HOME, LOGIN, SETTINGS } from '../constants/routeName';
-import { View, Text, Image, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, SafeAreaView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Container from '../components/common/container';
 
 // images
 import logo from "../assets/images/logo.png"
+import { useGlobalContext } from '../context/provider';
 
 const Drawer = createDrawerNavigator();
 
 const NavItems = ({ navigation }) => {
+  const { setIsLoggedIn } = useGlobalContext();
+
+  const handleLogout = ()=> {
+    navigation.toggleDrawer();
+    Alert.alert("Logout", "Are you sure you want to logout?",[
+      {
+        text: "Cancel",
+        onPress: ()=>{}
+      },
+      {
+        text: "Ok",
+        onPress: ()=>{setIsLoggedIn(false)}
+      }
+    ])
+  }
+
   const menuItems = [
     {icon:<Text>T</Text>, name:"Settings", onPress:()=>{navigation.navigate(SETTINGS)}},
-    {icon:<Text>T</Text>, name:"Logout", onPress:()=>{}}
+    {icon:<Text>T</Text>, name:"Logout", onPress: handleLogout}
   ]
 
   return (

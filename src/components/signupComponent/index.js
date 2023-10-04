@@ -19,6 +19,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 const SignupComponent = () => {
   const { navigate } = useNavigation();
+  const [showPassword, setShowPassword] = useState(true);
   const {
     control,
     handleSubmit,
@@ -72,13 +73,13 @@ const SignupComponent = () => {
             <Text style={styles.title}>Welcome to Contacts</Text>
             <Text style={styles.subTitle}>Create a free account</Text>
             
-            <Message 
+            {/* <Message 
               retry 
               retryFn={()=>{}} 
               primary 
               onDismiss={()=>{}}
               message="Invalid credentials" 
-            />
+            /> */}
 
             <View style={styles.form}>
               {error?.error && 
@@ -172,8 +173,8 @@ const SignupComponent = () => {
               <Input 
                 label="Password"
                 placeholder="Password"
-                secureTextEntry={true}
-                icon={<Text>Show</Text>}
+                secureTextEntry={showPassword}
+                  icon={<Text onPress={()=>setShowPassword(!showPassword)}>{showPassword ? "Show" : "Hide"}</Text>}
                 iconPosition="right" 
                 value={value}
                 onChangeText={onChange}

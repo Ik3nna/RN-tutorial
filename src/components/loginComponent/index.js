@@ -17,6 +17,7 @@ import colors from '../../assets/themes/colors';
 
 const LoginComponent = () => {
   const { navigate } = useNavigation();
+  const [showPassword, setShowPassword] = useState(true);
 
   const { authDispatch, setIsLoggedIn, authState:{ error, loading, data} } = useGlobalContext();
 
@@ -91,8 +92,8 @@ const LoginComponent = () => {
                 <Input 
                   label="Password"
                   placeholder="Password"
-                  secureTextEntry={true}
-                  icon={<Text>Show</Text>}
+                  secureTextEntry={showPassword}
+                  icon={<Text onPress={()=>setShowPassword(!showPassword)}>{showPassword ? "Show" : "Hide"}</Text>}
                   iconPosition="right" 
                   value={value}
                   onChangeText={onChange}
