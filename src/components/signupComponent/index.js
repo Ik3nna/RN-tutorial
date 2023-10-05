@@ -36,16 +36,10 @@ const SignupComponent = () => {
   const { authDispatch, authState:{ error, loading, data} } = useGlobalContext();
 
   const onSubmit = (data) => {
-    register(data)(authDispatch);
+    register(data)(authDispatch)((response)=>{
+      navigate(LOGIN, { data: response })
+    });
   }
-
-  console.log(data);
-  
-  useEffect(()=>{
-    if (data) {
-      navigate(LOGIN);
-    }
-  },[data]);
 
   useFocusEffect(
     React.useCallback(()=>{

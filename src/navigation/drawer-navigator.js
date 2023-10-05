@@ -3,6 +3,7 @@ import HomeNavigator from './home-navigator';
 import { HOME, LOGIN, SETTINGS } from '../constants/routeName';
 import { View, Text, Image, SafeAreaView, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Container from '../components/common/container';
+import Icon from '../components/common/icon';
 
 // images
 import logo from "../assets/images/logo.png"
@@ -28,8 +29,8 @@ const NavItems = ({ navigation }) => {
   }
 
   const menuItems = [
-    {icon:<Text>T</Text>, name:"Settings", onPress:()=>{navigation.navigate(SETTINGS)}},
-    {icon:<Text>T</Text>, name:"Logout", onPress: handleLogout}
+    {icon:<Icon type="fontisto" name="player-settings" size={17} color="black" />, name:"Settings", onPress:()=>{navigation.navigate(SETTINGS)}},
+    {icon:<Icon type="mi" name="logout" size={17} color="black" />, name:"Logout", onPress: handleLogout}
   ]
 
   return (

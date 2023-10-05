@@ -1,18 +1,19 @@
 import { Image, SafeAreaView, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from '../common/container';
 import Input from '../common/input';
 import CustomButton from '../common/customButton';
 import { StatusBar } from 'expo-status-bar';
 import { useForm, Controller } from "react-hook-form";
 import { useGlobalContext } from '../../context/provider';
+import { clearAuthState } from '../../context/actions/authRegister'; 
 import Message from '../common/message';
 import login from "../../context/actions/loginUser";
 
 // Images
 import logo from "../../assets/images/logo.png"
 import { CONTACT_LIST, REGISTER } from '../../constants/routeName';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import colors from '../../assets/themes/colors';
 
 const LoginComponent = () => {
@@ -21,21 +22,31 @@ const LoginComponent = () => {
 
   const { authDispatch, setIsLoggedIn, authState:{ error, loading, data} } = useGlobalContext();
 
+  const { params } = useRoute();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      userName: "",
+      userName: defaultValuesUsername || "",
       password: ""
     },
   })
+
+  let defaultValuesUsername = control._defaultValues.userName;
 
   const onSubmit = (data)=> {
     login(data)(authDispatch);
     setIsLoggedIn(true);
   } 
+
+  useEffect(()=>{
+    if (params?.data) {
+      defaultValuesUsername = params.data.username
+    }
+  },[params])
 
   return (
     <SafeAreaView>
