@@ -1,11 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect } from 'react'
-import Container from '../../components/common/container'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '../../components/common/icon'; 
+import ContactComponent from '../../components/contactsComponent';
 
 export default function Contacts () {
   const { setOptions, toggleDrawer } = useNavigation();
+  const [visible, setVisible] = useState(false);
 
   useEffect(()=>{
     setOptions({
@@ -17,9 +18,10 @@ export default function Contacts () {
   },[]);
 
   return (
-    <Container>
-      <Text>Contacts</Text>
-    </Container>
+    <ContactComponent 
+      visible={visible} 
+      setVisible={setVisible} 
+    />
   ) 
 }
 
