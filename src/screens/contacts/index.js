@@ -3,10 +3,17 @@ import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Icon from '../../components/common/icon'; 
 import ContactComponent from '../../components/contactsComponent';
+import { useGlobalContext } from "../../context/provider"
+import getContacts from '../../context/actions/getContacts';
 
 export default function Contacts () {
   const { setOptions, toggleDrawer } = useNavigation();
   const [visible, setVisible] = useState(false);
+  const {
+    contactsState: {
+      getContacts: { data, loading }
+    }, contactsDispatch
+  } = useGlobalContext();
 
   useEffect(()=>{
     setOptions({
@@ -17,10 +24,16 @@ export default function Contacts () {
     })
   },[]);
 
+  useEffect(()=>{
+    getContacts()(contactsDispatch)
+  },[]);
+
   return (
     <ContactComponent 
       visible={visible} 
       setVisible={setVisible} 
+      data={data}
+      loading={loading}
     />
   ) 
 }
